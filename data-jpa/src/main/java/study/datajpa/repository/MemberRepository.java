@@ -2,6 +2,8 @@ package study.datajpa.repository;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -24,4 +26,6 @@ public interface MemberRepository extends JpaRepository<Member,Long>{
 	// dto 조회할때. new - jpql이 제공하는 문법 
 	@Query("select new study.datajpa.dto.MemerDto(m.id, m.username, t.name) from Member m join m.team")
 	List<MemberDto> findMemberDto();
+	
+	Page<Member> findByAge(int age, Pageable pageable);
 }
