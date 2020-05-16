@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
@@ -28,4 +29,8 @@ public interface MemberRepository extends JpaRepository<Member,Long>{
 	List<MemberDto> findMemberDto();
 	
 	Page<Member> findByAge(int age, Pageable pageable);
+	
+	@Modifying(clearAutomatically = true) // 변경시 넣어주어야함. executeUpdate() 역활 clearAutomatically = true 이 쿼리가 나가고 난 다음에 영속성컨텍스트 초기화
+	@Query("update Member m set m.age = m.age +1 where m.age >= :age")
+	int bulkAgePlus(@Param("age") int age);
 }

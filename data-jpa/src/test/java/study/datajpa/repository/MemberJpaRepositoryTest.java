@@ -5,6 +5,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.List;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +23,8 @@ import study.datajpa.entity.Member;
 class MemberJpaRepositoryTest {
 
 	@Autowired MemberJpaRepository memberJpaRepository;
-	
+	@PersistenceContext
+	EntityManager em;
 	@Test
 	public void testMember() {
 		Member member = new Member("meberA");
@@ -85,6 +89,7 @@ class MemberJpaRepositoryTest {
 		memberJpaRepository.save(new Member("member2",10));
 		memberJpaRepository.save(new Member("member3",10));
 		memberJpaRepository.save(new Member("member4",10));
+		memberJpaRepository.save(new Member("member5",10));
 		
 		int age = 10;
 		int offset = 0;
@@ -95,8 +100,22 @@ class MemberJpaRepositoryTest {
 		
 		assertThat(members.size()).isEqualTo(3);
 		assertThat(totalCount).isEqualTo(5);
+	}
+	
+	@Test
+	public void bulkUpdate() {
+		memberJpaRepository.save(new Member("member1", 10));
+		memberJpaRepository.save(new Member("member2", 12));
+		memberJpaRepository.save(new Member("member3", 14));
+		memberJpaRepository.save(new Member("member4", 17));
+		memberJpaRepository.save(new Member("member5", 7));
 		
+		int resultCount = memberJpaRepository.bulkAgePlus(20);
+		// 벌크연산은 영속성 컨텍스트를 거치지 않고 db에 들어가 초기화해주어야한다.
+		em.flush(); //혹시나 변경되지 않은 남아있는내용들을 db에 반영
+		em.clear();
 		
+		assertThat(resultCount).isEqualTo(3);
 	}
 
 }

@@ -4,6 +4,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.List;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +28,7 @@ class MemberRepositoryTest {
 
 	@Autowired MemberRepository memberRepository;
 	@Autowired TeamRepository teamRepository;
+
 	
 	@Test
 	public void testMember() {
@@ -116,8 +120,20 @@ class MemberRepositoryTest {
 		assertThat(page.hasNext()).isTrue();
 		
 		
+	}
+	
+	@Test
+	public void bulkUpdate() {
+		memberRepository.save(new Member("member1", 10));
+		memberRepository.save(new Member("member2", 12));
+		memberRepository.save(new Member("member3", 14));
+		memberRepository.save(new Member("member4", 17));
+		memberRepository.save(new Member("member5", 7));
 		
+		int resultCount = memberRepository.bulkAgePlus(20);
+
 		
+		assertThat(resultCount).isEqualTo(3);
 	}
 	
 
