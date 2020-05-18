@@ -10,6 +10,22 @@
 - Hibernate
 	- ORM 프레임워크, Open Source SW
 - H2 데이터베이스
+- 쿼리 파라미터 로그 남기기 
+	- implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.5.7' 추가
+# lombok
+	- @Setter, @Getter
+	- @NoArgsConstructor AccessLevel.PROTECTED: 기본 생성자 막고 싶은데,JPA 스팩상 PROTECTED로 열어두어야한다.
+	- @ToString
+	
+# JpaRepository 공통 기능 인터페이스
+	- 공통 CRUD 제공
+	- 제네릭은 <엔티티 타입, 식별자 타입> 설정
+	- save(S) : 새로운 엔티티는 저장하고 이미 있는 엔티티는 병합한다.
+        - delete(T) : 엔티티 하나를 삭제한다. 내부에서 EntityManager.remove() 호출
+        - findById(ID) : 엔티티 하나를 조회한다. 내부에서 EntityManager.find() 호출
+        - getOne(ID) : 엔티티를 프록시로 조회한다. 내부에서 EntityManager.getReference() 호출
+        - findAll(…) : 모든 엔티티를 조회한다. 정렬( Sort )이나 페이징( Pageable ) 조건을 파라미터로 제공할 수 있다.
+
 
 	
 	
@@ -18,6 +34,7 @@
 	 [postman] https://www.postman.com/
 	 [thymeleaf] https://www.thymeleaf.org/
 	 [spring initializr] https://start.spring.io/
+	 [H2 database] https://www.h2database.com/html/main.html
 	
 
 	
