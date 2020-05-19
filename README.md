@@ -26,6 +26,20 @@
         - getOne(ID) : 엔티티를 프록시로 조회한다. 내부에서 EntityManager.getReference() 호출
         - findAll(…) : 모든 엔티티를 조회한다. 정렬( Sort )이나 페이징( Pageable ) 조건을 파라미터로 제공할 수 있다.
 
+# 쿼리 메소드 기능 (https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#jpa.query-methods.query-creation)
+	- 메소드 이름으로 쿼리 생성
+	- 메소드 이름으로 JPA NamedQuery 호출
+	- @Query 어노테이션을 사용하여 리파지토리 인터페이스에 쿼리 직접 정의
+	- 스프링 데이터 JPA는 메소드 이름을 분석해서 JPQL을 생성하고 실행
+	- 스프링 데이터 JPA가 제공하는 쿼리 메소드 기능
+		- 조회: find...By, read...By, query...By, get...By
+		- COUNT: count...By 반환타입 long
+		- EXISTS: exists...By 반환타입 boolean
+		- 삭제: delete...By, remove...By 반환타입 long
+		- DISTINCT: findDistinct, findMemberDistinctBy
+		- LIMIT: findFirst3, findFirst, findTop, findTop3
+	
+
 
 	
 	
