@@ -38,10 +38,11 @@
 		- 삭제: delete...By, remove...By 반환타입 long
 		- DISTINCT: findDistinct, findMemberDistinctBy
 		- LIMIT: findFirst3, findFirst, findTop, findTop3
-	
 
-
-	
+# EntityGraph
+	- 연관된 엔티티들을 SQL 한번에 조회하는 방법
+	- 페치 조인의 간편 버전
+	- LEFT OUTER JOIN 사용	
 	
 # 참고 : 
 	 [lombok] https://projectlombok.org/
